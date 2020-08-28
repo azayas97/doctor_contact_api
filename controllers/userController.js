@@ -30,28 +30,28 @@ var dataUser = [
         'name': 'Antonio Zayas',
         'email': 'Antonio@email.com',
         'phone': '66222221144',
-        'profile_pic': link + '/aaa.PNG'
+        'profile_pic': link + 'aaa.PNG'
     },
     {
         'id': 2,
         'name': 'John Doe',
         'email': 'John@email.com',
         'phone': '66222221144',
-        'profile_pic': link + '/gaben.png'
+        'profile_pic': link + 'gaben.png'
     },
     {
         'id': 3,
         'name': 'Jane Doe',
         'email': 'Jane@email.com',
         'phone': '66222221144',
-        'profile_pic': link + '/todd.png'
+        'profile_pic': link + 'todd.png'
     },
     {
         'id': 2,
         'name': 'Kevin Doe',
         'email': 'Kevin@email.com',
         'phone': '66222221144',
-        'profile_pic': link + '/aa.png'
+        'profile_pic': link + 'aa.png'
     },
 ];
 
