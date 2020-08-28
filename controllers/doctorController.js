@@ -12,9 +12,9 @@
  * Features:
  *  - Index
  *  - Get ( params )
- *  - Add ( x-www-urlencoded )
- *  - Update ( x-www-urlencoded )
- *  - Delete ( x-www-urlencoded )
+ *  - Add ( form-data )
+ *  - Update ( form-data )
+ *  - Delete ( form-data )
  * 
  ============================ */
 
