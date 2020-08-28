@@ -21,7 +21,7 @@
  const fs = require('fs');
  
  const path = './assets/';
- const link = 'http://localhost:3000';
+ const link = 'http://localhost:3000/';
 
 // Users' data using Arrays
 var dataUser = [
