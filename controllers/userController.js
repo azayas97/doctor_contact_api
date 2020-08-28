@@ -120,7 +120,7 @@ exports.edit = (req, res) => {
 
     let fileName = `${ dataUser[userId - 1].name }-${ userId }.${ extension }`;
 
-    foto.mv(`./assets/${ fileName }`);
+    picture.mv(`./assets/${ fileName }`);
 
     dataUser[userId - 1] = {
         id: userId,
