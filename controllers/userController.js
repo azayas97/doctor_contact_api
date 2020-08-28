@@ -69,7 +69,7 @@ exports.add = (req, res) => {
 
     let fileName = `${ req.body.name }-${ dataUser.length + 1}.${ extension }`;
 
-    foto.mv(`./assets/${ fileName }`);
+    picture.mv(`./assets/${ fileName }`);
 
     dataUser.push({
         id: dataUser.length + 1,
