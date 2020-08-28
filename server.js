@@ -38,6 +38,6 @@ require('./routes/doctor.route')(app);
 require('./routes/user.route')(app);
 
 // You know what this is.
-app.listen(3000, () => {
-    console.log('\n===============================\n  NodeJS Running on port 3000\n===============================\n\nBrought you by Antonio Zayas!\nGithub: https://github.com/azayas97\n');
+app.listen(process.env.PORT || 3000, () => {
+    console.log('\n===============================\n  NodeJS Running on port ' + process.env.PORT + '\n===============================\n\nBrought you by Antonio Zayas!\nGithub: https://github.com/azayas97\n');
 })
