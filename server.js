@@ -17,7 +17,6 @@
  ============================ */
 
 const express = require('express');
-const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload');
 
 const app = express();
@@ -27,11 +26,6 @@ app.use(fileUpload());
 
 // Static folder
 app.use(express.static(__dirname +'/assets'));
-
-// x-www-urlencoded use
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
 
 // Routes
 require('./routes/doctor.route')(app);
