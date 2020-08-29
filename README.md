@@ -1,4 +1,4 @@
-# doctor-api-test
+# api-doctor
 
 Hi everyone.
 
