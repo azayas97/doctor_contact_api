@@ -1,0 +1,47 @@
+{
+  "errors": {
+    "internalError": "Something went wrong, try again.",
+    "expiredSession": "Session expired, please login again."
+  },
+  "services": {
+    "auth": {
+      "noUser": "This email is not registered.",
+      "successLogin": "User logged in successfully.",
+      "passwordChanged": "Password changed successfully.",
+      "wrongPass": "Wrong credentials."
+    },
+    "doctor": {
+      "created": "Doctor added successfully.",
+      "notFound": "The selected doctor doesn't exist.",
+      "updated": "Doctor updated successfully.",
+      "deleted": "Doctor deleted successfully."
+    },
+    "user": {
+      "created": "User created successfully.",
+      "updated": "User updated successfully.",
+      "emailExists": "The email has been already taken.",
+      "notFound": "The user cannot be found."
+    }
+  },
+  "controllers": {
+    "badRequest": "There are empty required fields.",
+    "user": {
+      "idMissing": "User ID is required.",
+      "emailMissing": "Email is required.",
+      "passwordMissing": "Password is required.",
+      "firstNameMissing": "First name is required.",
+      "lastNameMissing": "Last name is required.",
+      "cityMissing": "City is required.",
+      "stateMissing": "State is required.",
+      "countryMissing": "Country is required.",
+      "phoneMissing": "Phone is required."
+    },
+    "doctor": {
+      "idMissing": "Doctor ID is required.",
+      "nameMissing": "Name is required.",
+      "dptMissing": "Department is required.",
+      "clinicMissing": "Clinic is required.",
+      "phoneMissing": "Phone number is required."
+    }
+  }
+}

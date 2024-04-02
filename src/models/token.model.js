@@ -1,4 +1,4 @@
-export class Token {
+export default class Token {
   constructor(email = '', token = '', expiresIn = 0) {
     this.email = email;
     this.token = token;

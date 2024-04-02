@@ -1,48 +1,76 @@
 import Constants from '../../utils/constants.util.js';
-import Strings from '../../utils/strings.utils.js';
 
-import { Response } from '../../models/response.model.js';
+import Response from '../../models/response.model.js';
 
 import { changeUserPasswordService, loginUserService } from '../../services/auth.service.js';
 
+import messages from '../../resources/messages.json';
+
 const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+  const {
+    email,
+    password,
+  } = req.body;
   const errorList = [];
 
-  if (!email) errorList.push(Strings.USER_EMAIL_MISSING);
+  if (!email) errorList.push(messages.controllers.user.emailMissing);
 
-  if (!password) errorList.push(Strings.USER_PASSWORD_MISSING);
+  if (!password) errorList.push(messages.controllers.user.passwordMissing);
 
   if (errorList.length > 0) {
-    const response = new Response(false, Constants.BAD_REQUEST,
-      Strings.USER_BAD_REQUEST, errorList);
+    const response = new Response(
+      false,
+      Constants.BAD_REQUEST,
+      messages.controllers.badRequest,
+      errorList,
+    );
 
     return res.status(response.code).json(response);
   }
 
-  const response = await loginUserService(email, password);
+  try {
+    const response = await loginUserService(email, password);
 
-  return res.status(response.code).json(response);
+    return res.status(response.code).json(response);
+  } catch (err) {
+    return res.status(Constants.INTERNAL).json({
+      message: err.message,
+    });
+  }
 };
 
 const changePassword = async (req, res) => {
-  const { email, oldPassword, newPassword } = req.body;
+  const {
+    email,
+    oldPassword,
+    newPassword,
+  } = req.body;
   const errorList = [];
 
-  if (!email) errorList.push(Strings.USER_EMAIL_MISSING);
+  if (!email) errorList.push(messages.controllers.user.emailMissing);
 
-  if (!oldPassword || !newPassword) errorList.push(Strings.USER_PASSWORD_MISSING);
+  if (!oldPassword || !newPassword) errorList.push(messages.controllers.user.passwordMissing);
 
   if (errorList.length > 0) {
-    const response = new Response(false, Constants.BAD_REQUEST,
-      Strings.USER_BAD_REQUEST, errorList);
+    const response = new Response(
+      false,
+      Constants.BAD_REQUEST,
+      messages.controllers.badRequest,
+      errorList,
+    );
 
     return res.status(response.code).json(response);
   }
 
-  const response = await changeUserPasswordService(email, oldPassword, newPassword);
+  try {
+    const response = await changeUserPasswordService(email, oldPassword, newPassword);
 
-  return res.status(response.code).json(response);
+    return res.status(response.code).json(response);
+  } catch (err) {
+    return res.status(Constants.INTERNAL).json({
+      message: err.message,
+    });
+  }
 };
 
 export {

@@ -1,12 +1,13 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
-import { models } from '../database/entities/index.js';
+import models from '../database/entities/index.js';
 
-import Strings from '../utils/strings.utils.js';
 import Constants from '../utils/constants.util.js';
 
-import { Token } from '../models/token.model.js';
+import Token from '../models/token.model.js';
+
+import messages from '../resources/messages.json';
 
 const loginUserService = async (email, password) => {
   try {
@@ -18,7 +19,7 @@ const loginUserService = async (email, password) => {
       return {
         success: false,
         code: Constants.UNAUTHORIZED,
-        message: Strings.NO_EMAIL_FOUND,
+        message: messages.services.auth.noUser,
         data: null,
       };
     }
@@ -29,7 +30,7 @@ const loginUserService = async (email, password) => {
       return {
         success: false,
         code: Constants.UNAUTHORIZED,
-        message: Strings.WRONG_PASSWORD,
+        message: messages.services.auth.wrongPass,
         data: null,
       };
     }
@@ -41,19 +42,23 @@ const loginUserService = async (email, password) => {
       expiresIn: Constants.EXPIRE_TIME,
     });
 
-    const data = new Token(email, token, Constants.EXPIRE_TIME);
+    const data = new Token(
+      email,
+      token,
+      Constants.EXPIRE_TIME,
+    );
 
     return {
       success: true,
       code: Constants.OKAY,
-      message: Strings.LOGIN_SUCCESSFUL,
+      message: messages.services.auth.successLogin,
       data,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -69,7 +74,7 @@ const changeUserPasswordService = async (email, oldPassword, newPassword) => {
       return {
         success: false,
         code: Constants.UNAUTHORIZED,
-        message: Strings.NO_EMAIL_FOUND,
+        message: messages.services.auth.noUser,
         data: null,
       };
     }
@@ -80,7 +85,7 @@ const changeUserPasswordService = async (email, oldPassword, newPassword) => {
       return {
         success: false,
         code: Constants.UNAUTHORIZED,
-        message: Strings.WRONG_PASSWORD,
+        message: messages.services.auth.wrongPass,
         data: null,
       };
     }
@@ -90,14 +95,14 @@ const changeUserPasswordService = async (email, oldPassword, newPassword) => {
     return {
       success: true,
       code: Constants.OKAY,
-      message: Strings.PASSWORD_CHANGED,
+      message: messages.services.auth.passwordChanged,
       data: null,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }

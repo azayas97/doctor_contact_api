@@ -1,12 +1,14 @@
 import bcrypt from 'bcrypt';
 
-import { User } from '../models/user.model.js';
+import models from '../database/entities/index.js';
+
+import User from '../models/user.model.js';
 
 import Constants from '../utils/constants.util.js';
-import Strings from '../utils/strings.utils.js';
 
 import { doesUserExistByEmail } from '../rules/user.rule.js';
-import { models } from '../database/entities/index.js';
+
+import messages from '../resources/messages.json';
 
 const registerUserService = async (user) => {
   const userModel = new User(user);
@@ -18,7 +20,7 @@ const registerUserService = async (user) => {
       return {
         success: false,
         code: Constants.BAD_REQUEST,
-        message: Strings.EMAIL_EXISTS,
+        message: messages.services.user.emailExists,
         data: null,
       };
     }
@@ -31,14 +33,14 @@ const registerUserService = async (user) => {
     return {
       success: true,
       code: Constants.CREATED,
-      message: Strings.CREATED_USER,
+      message: messages.services.user.created,
       data: null,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -59,7 +61,7 @@ const editUserService = async (user) => {
       return {
         success: false,
         code: Constants.NOT_FOUND,
-        message: Strings.USER_NO_EXIST,
+        message: messages.services.user.notFound,
         data: null,
       };
     }
@@ -69,14 +71,14 @@ const editUserService = async (user) => {
     return {
       success: true,
       code: Constants.OKAY,
-      message: Strings.UPDATED_USER,
+      message: messages.services.user.updated,
       data: result,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }

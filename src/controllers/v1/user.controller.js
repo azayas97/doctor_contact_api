@@ -1,36 +1,52 @@
 import Constants from '../../utils/constants.util.js';
-import Strings from '../../utils/strings.utils.js';
 
-import { Response } from '../../models/response.model.js';
-import { editUserService, registerUserService } from '../../services/user.service.js';
-import { User } from '../../models/user.model.js';
+import Response from '../../models/response.model.js';
+import User from '../../models/user.model.js';
+
+import {
+  editUserService,
+  registerUserService,
+} from '../../services/user.service.js';
+
+import messages from '../../resources/messages.json';
 
 const registerUser = async (req, res) => {
   const {
-    email, password, firstName, lastName,
-    city, state, country, phone,
+    email,
+    password,
+    firstName,
+    lastName,
+    city,
+    state,
+    country,
+    phone,
   } = req.body;
+
   const errorList = [];
 
-  if (!email) errorList.push(Strings.USER_EMAIL_MISSING);
+  if (!email) errorList.push(messages.controllers.user.emailMissing);
 
-  if (!password) errorList.push(Strings.USER_PASSWORD_MISSING);
+  if (!password) errorList.push(messages.controllers.user.passwordMissing);
 
-  if (!firstName) errorList.push(Strings.USER_FIRSTNAME_MISSING);
+  if (!firstName) errorList.push(messages.controllers.user.firstNameMissing);
 
-  if (!lastName) errorList.push(Strings.USER_LASTNAME_MISSING);
+  if (!lastName) errorList.push(messages.controllers.user.lastNameMissing);
 
-  if (!city) errorList.push(Strings.USER_CITY_MISSING);
+  if (!city) errorList.push(messages.controllers.user.cityMissing);
 
-  if (!state) errorList.push(Strings.USER_STATE_MISSING);
+  if (!state) errorList.push(messages.controllers.user.stateMissing);
 
-  if (!phone) errorList.push(Strings.USER_PHONE_MISSING);
+  if (!phone) errorList.push(messages.controllers.user.phoneMissing);
 
-  if (!country) errorList.push(Strings.USER_COUNTRY_MISSING);
+  if (!country) errorList.push(messages.controllers.user.countryMissing);
 
   if (errorList.length > 0) {
-    const response = new Response(false, Constants.BAD_REQUEST,
-      Strings.USER_BAD_REQUEST, errorList);
+    const response = new Response(
+      false,
+      Constants.BAD_REQUEST,
+      messages.controllers.badRequest,
+      errorList,
+    );
 
     return res.status(response.code).json(response);
   }
@@ -47,21 +63,35 @@ const registerUser = async (req, res) => {
     phone,
   });
 
-  const response = await registerUserService(data);
+  try {
+    const response = await registerUserService(data);
 
-  return res.status(response.code).json(response);
+    return res.status(response.code).json(response);
+  } catch (err) {
+    return res.status(Constants.INTERNAL).json({
+      message: err.message,
+    });
+  }
 };
 
 const editUser = async (req, res) => {
   const {
-    id, email, firstName, lastName,
-    city, state, country, phone,
+    id,
+    email,
+    firstName,
+    lastName,
+    city,
+    state,
+    country,
+    phone,
   } = req.body;
 
   if (!id) {
-    const response = new Response(false,
-      Constants.BAD_REQUEST, Strings.USER_ID_MISSING,
-      null);
+    const response = new Response(
+      false,
+      Constants.BAD_REQUEST,
+      messages.controllers.user.idMissing,
+    );
     return res.status(response.code).json(response);
   }
 
@@ -76,9 +106,15 @@ const editUser = async (req, res) => {
     phone,
   };
 
-  const response = await editUserService(data);
+  try {
+    const response = await editUserService(data);
 
-  return res.status(response.code).json(response);
+    return res.status(response.code).json(response);
+  } catch (err) {
+    return res.status(Constants.INTERNAL).json({
+      message: err.message,
+    });
+  }
 };
 
 export {

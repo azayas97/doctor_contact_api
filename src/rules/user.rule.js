@@ -1,4 +1,4 @@
-import { models } from '../database/entities/index.js';
+import models from '../database/entities/index.js';
 
 export async function doesUserExistByEmail(email) {
   try {

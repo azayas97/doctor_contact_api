@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-export default function doctor(db = new Sequelize()) {
+export default (db = new Sequelize()) => {
   const Doctor = db.define('Doctors', {
     id: {
       type: Sequelize.INTEGER,
@@ -37,4 +37,4 @@ export default function doctor(db = new Sequelize()) {
   };
 
   return Doctor;
-}
+};

@@ -2,14 +2,14 @@ import dotenv from 'dotenv';
 import express from 'express';
 import fileUpload from 'express-fileupload';
 
-import { models } from './database/entities/index.js';
+import models from './database/entities/index.js';
 
 import apiRoutes from './routes/index.js';
 
 dotenv.config();
 
 models.seq.sync({
-  // alter: true
+  // alter: true,
 })
   .then(() => {
     const app = express();
@@ -23,7 +23,7 @@ models.seq.sync({
 
     app.listen(process.env.PORT, () => {
       console.log(`=================  NodeJS Running on port ${process.env.PORT}  =================
-      Brought you by Antonio Zayas!
+          Brought you by Antonio Zayas!
       Github: https://github.com/azayas97`);
     });
   })

@@ -1,8 +1,10 @@
-import Constants from '../utils/constants.util.js';
-import Strings from '../utils/strings.utils.js';
+import models from '../database/entities/index.js';
 
-import { Doctor } from '../models/doctor.model.js';
-import { models } from '../database/entities/index.js';
+import Constants from '../utils/constants.util.js';
+
+import Doctor from '../models/doctor.model.js';
+
+import messages from '../resources/messages.json';
 
 const getAllDoctorsByUserIDService = async (userId) => {
   try {
@@ -21,7 +23,7 @@ const getAllDoctorsByUserIDService = async (userId) => {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -43,7 +45,7 @@ const getDoctorByIDService = async (doctorId) => {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -58,14 +60,14 @@ const createDoctorService = async (doctor) => {
     return {
       success: true,
       code: Constants.CREATED,
-      message: Strings.CREATED_USER,
+      message: messages.services.doctor.created,
       data: result,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -84,7 +86,7 @@ const updateDoctorService = async (doctor) => {
       return {
         success: false,
         code: Constants.NOT_FOUND,
-        message: Strings.DOCTOR_NOT_FOUND,
+        message: messages.services.doctor.notFound,
         data: null,
       };
     }
@@ -94,14 +96,14 @@ const updateDoctorService = async (doctor) => {
     return {
       success: true,
       code: Constants.CREATED,
-      message: Strings.CREATED_USER,
+      message: messages.services.doctor.updated,
       data: result,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }
@@ -117,26 +119,26 @@ const deleteDoctorByIDService = async (doctorId) => {
       return {
         success: false,
         code: Constants.NOT_FOUND,
-        message: Strings.DOCTOR_NOT_FOUND,
+        message: messages.services.doctor.notFound,
         data: null,
       };
     }
 
     const result = await doctorData.destroy(doctorData);
 
-    if (!result) throw 'Could not delete doctor.';
+    if (!result) throw new Error('Could not delete doctor.');
 
     return {
       success: true,
       code: Constants.OKAY,
-      message: Strings.DOCTOR_DELETED,
+      message: messages.services.doctor.deleted,
       data: null,
     };
   } catch (error) {
     return {
       success: false,
       code: Constants.INTERNAL,
-      message: Strings.INTERNAL_ERROR,
+      message: messages.errors.internalError,
       data: error.toString(),
     };
   }

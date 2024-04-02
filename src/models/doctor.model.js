@@ -1,4 +1,4 @@
-export class Doctor {
+export default class Doctor {
   constructor(doctor) {
     this.id = doctor.id;
     this.name = doctor.name;

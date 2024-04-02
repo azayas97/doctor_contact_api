@@ -31,4 +31,4 @@ Object.keys(models).forEach((model) => {
   }
 });
 
-export { models };
+export default models;

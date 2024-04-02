@@ -1,5 +1,5 @@
 {
-  "name": "api-mobile",
+  "name": "doctor-contact-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "npx eslint ./src",
     "lint-fix": "npx eslint ./src --fix",
-    "start": "nodemon src/server.js"
+    "start": "nodemon --experimental-json-modules src/server.js"
   },
   "type": "module",
   "author": "",
