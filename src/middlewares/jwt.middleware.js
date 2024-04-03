@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-import Response from '../models/response.model.js';
+const Response = require('../models/response.model.js');
 
-import Constants from '../utils/constants.util.js';
+const Constants = require('../utils/constants.util.js');
 
-import messages from '../resources/messages.json';
+const messages = require('../resources/messages.json');
 
 const jwtMiddleware = (req, res, next) => {
   const token = req.headers['auth-token'];

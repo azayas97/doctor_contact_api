@@ -10,6 +10,7 @@
   "functions": 95,
   "statements": 95,
   "check-coverage": true,
+  "all": true,
   "reporter": [
     "text",
     "text-summary",

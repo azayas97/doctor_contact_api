@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
-import express from 'express';
-import fileUpload from 'express-fileupload';
+const dotenv = require('dotenv');
+const express = require('express');
+const fileUpload = require('express-fileupload');
 
-import models from './database/entities/index.js';
+const models = require('./database/entities/index.js');
 
-import apiRoutes from './routes/index.js';
+const apiRoutes = require('./routes/index.js');
 
 dotenv.config();
 

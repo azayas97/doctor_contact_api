@@ -1,6 +1,6 @@
 const express = require('express');
 
-const jwtMiddleware = require('../../middlewares/jwt.middleware.js');
+const jwtCheck = require('../../middlewares/jwt.middleware.js');
 
 const {
   editUser,
@@ -10,6 +10,6 @@ const {
 const router = express.Router();
 
 router.post('/register', [], registerUser);
-router.put('/edit', [jwtMiddleware], editUser);
+router.put('/edit', [jwtCheck], editUser);
 
 module.exports = router;
