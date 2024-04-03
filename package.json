@@ -10,7 +10,7 @@
     "precommit": "npm run lint && npm run test",
     "start": "nodemon src/server.js"
   },
-  "author": "",
+  "author": "azayas97",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
