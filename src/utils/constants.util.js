@@ -17,4 +17,4 @@ class Constants {
   static get EXPIRE_TIME() { return 1_800_000; }
 }
 
-export default Constants;
+module.exports = Constants;

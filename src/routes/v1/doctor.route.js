@@ -1,12 +1,12 @@
-import express from 'express';
+const express = require('express');
 
-import {
+const {
   getAllDoctorsByUserID,
   getDoctorByID,
   createDoctor,
   updateDoctor,
   deleteDoctorByID,
-} from '../../controllers/v1/doctor.controller.js';
+} = require('../../controllers/v1/doctor.controller.js');
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.post('/add', [], createDoctor);
 router.put('/edit', [], updateDoctor);
 router.delete('/delete', [], deleteDoctorByID);
 
-export default router;
+module.exports = router;

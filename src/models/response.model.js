@@ -1,4 +1,4 @@
-export default class Response {
+class Response {
   constructor(success = false, code = 0, message = '', data = {}) {
     this.success = success;
     this.code = code;
@@ -6,3 +6,5 @@ export default class Response {
     this.data = data;
   }
 }
+
+module.exports = Response;

@@ -25,6 +25,7 @@
   },
   "controllers": {
     "badRequest": "There are empty required fields.",
+    "internal": "Something went wrong in our end!",
     "user": {
       "idMissing": "User ID is required.",
       "emailMissing": "Email is required.",

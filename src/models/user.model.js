@@ -1,4 +1,4 @@
-export default class User {
+class User {
   constructor(user) {
     this.id = user.id;
     this.email = user.email;
@@ -11,3 +11,5 @@ export default class User {
     this.phone = user.phone;
   }
 }
+
+module.exports = User;

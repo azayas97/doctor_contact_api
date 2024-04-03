@@ -1,11 +1,14 @@
-import jwt from 'jsonwebtoken';
+const jwt = require('jsonwebtoken');
 
-// eslint-disable-next-line import/prefer-default-export
-export const getUserIDFromToken = (req) => {
+const getUserIDFromToken = (req) => {
   const token = jwt.decode(
     req.headers['auth-token'],
     process.env.JWT_SECRET,
   );
 
   return token.id;
+};
+
+module.exports = {
+  getUserIDFromToken,
 };

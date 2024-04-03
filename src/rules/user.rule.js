@@ -1,25 +1,22 @@
-import models from '../database/entities/index.js';
+const models = require('../database/entities/index.js');
 
-export async function doesUserExistByEmail(email) {
-  try {
-    const result = await models.user.findOne({
-      where: { email },
-    });
+const doesUserExistByEmail = async (email) => {
+  const result = await models.user.findOne({
+    where: { email },
+  });
 
-    return (result);
-  } catch (error) {
-    throw error.toString();
-  }
-}
+  return (result);
+};
 
-export async function doesUserExistByID(userId) {
-  try {
-    const result = await models.user.findOne({
-      where: { id: userId },
-    });
+const doesUserExistByID = async (userId) => {
+  const result = await models.user.findOne({
+    where: { id: userId },
+  });
 
-    return (result);
-  } catch (error) {
-    throw error.toString();
-  }
-}
+  return (result);
+};
+
+module.exports = {
+  doesUserExistByEmail,
+  doesUserExistByID,
+};

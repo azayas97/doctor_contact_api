@@ -1,4 +1,4 @@
-export default class Doctor {
+class Doctor {
   constructor(doctor) {
     this.id = doctor.id;
     this.name = doctor.name;
@@ -8,3 +8,5 @@ export default class Doctor {
     this.user_id = doctor.user_id;
   }
 }
+
+module.exports = Doctor;

@@ -6,7 +6,7 @@ import Constants from '../utils/constants.util.js';
 
 import messages from '../resources/messages.json';
 
-export default (req, res, next) => {
+const jwtMiddleware = (req, res, next) => {
   const token = req.headers['auth-token'];
 
   if (!token || token === '') {
@@ -33,3 +33,5 @@ export default (req, res, next) => {
     return next();
   });
 };
+
+module.exports = jwtMiddleware;

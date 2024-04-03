@@ -1,15 +1,15 @@
-import express from 'express';
+const express = require('express');
 
-import jwtMiddleware from '../../middlewares/jwt.middleware.js';
+const jwtMiddleware = require('../../middlewares/jwt.middleware.js');
 
-import {
+const {
   editUser,
   registerUser,
-} from '../../controllers/v1/user.controller.js';
+} = require('../../controllers/v1/user.controller.js');
 
 const router = express.Router();
 
 router.post('/register', [], registerUser);
 router.put('/edit', [jwtMiddleware], editUser);
 
-export default router;
+module.exports = router;

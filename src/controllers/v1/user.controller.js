@@ -1,14 +1,13 @@
-import Constants from '../../utils/constants.util.js';
+const Constants = require('../../utils/constants.util.js');
 
-import Response from '../../models/response.model.js';
-import User from '../../models/user.model.js';
+const Response = require('../../models/response.model.js');
 
-import {
+const {
   editUserService,
   registerUserService,
-} from '../../services/user.service.js';
+} = require('../../services/user.service.js');
 
-import messages from '../../resources/messages.json';
+const messages = require('../../resources/messages.json');
 
 const registerUser = async (req, res) => {
   const {
@@ -51,7 +50,7 @@ const registerUser = async (req, res) => {
     return res.status(response.code).json(response);
   }
 
-  const data = new User({
+  const data = {
     id: 0,
     email,
     password,
@@ -61,16 +60,21 @@ const registerUser = async (req, res) => {
     state,
     country: 'Mexico',
     phone,
-  });
+  };
 
   try {
     const response = await registerUserService(data);
 
     return res.status(response.code).json(response);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
@@ -111,13 +115,18 @@ const editUser = async (req, res) => {
 
     return res.status(response.code).json(response);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
-export {
+module.exports = {
   registerUser,
   editUser,
 };

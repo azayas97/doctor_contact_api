@@ -1,19 +1,19 @@
-import Constants from '../../utils/constants.util.js';
+const Constants = require('../../utils/constants.util.js');
 
-import {
+const {
   createDoctorService,
   deleteDoctorByIDService,
   getAllDoctorsByUserIDService,
   getDoctorByIDService,
   updateDoctorService,
-} from '../../services/doctor.service.js';
+} = require('../../services/doctor.service.js');
 
-import Response from '../../models/response.model.js';
-import Doctor from '../../models/doctor.model.js';
+const Response = require('../../models/response.model.js');
+const Doctor = require('../../models/doctor.model.js');
 
-import { getUserIDFromToken } from '../../helpers/getToken.js';
+const { getUserIDFromToken } = require('../../helpers/getToken.js');
 
-import messages from '../../resources/messages.json';
+const messages = require('../../resources/messages.json');
 
 const getAllDoctorsByUserID = async (req, res) => {
   const { userId } = req.params;
@@ -41,9 +41,14 @@ const getDoctorByID = async (req, res) => {
 
     return res.status(result.code).json(result);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
@@ -64,7 +69,7 @@ const createDoctor = async (req, res) => {
 
   if (errorsList.length > 0) {
     const response = new Response(
-      true,
+      false,
       Constants.BAD_REQUEST,
       null,
       errorsList,
@@ -89,9 +94,14 @@ const createDoctor = async (req, res) => {
 
     return res.status(result.code).json(result);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
@@ -128,9 +138,14 @@ const updateDoctor = async (req, res) => {
 
     return res.status(result.code).json(result);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
@@ -142,13 +157,18 @@ const deleteDoctorByID = async (req, res) => {
 
     return res.status(result.code).json(result);
   } catch (err) {
-    return res.status(Constants.INTERNAL).json({
-      message: err.message,
-    });
+    const response = new Response(
+      false,
+      Constants.INTERNAL,
+      messages.controllers.internal,
+      err.message,
+    );
+
+    return res.status(Constants.INTERNAL).json(response);
   }
 };
 
-export {
+module.exports = {
   getAllDoctorsByUserID,
   getDoctorByID,
   createDoctor,

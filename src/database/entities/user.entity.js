@@ -1,6 +1,6 @@
-import { Sequelize } from 'sequelize';
+const { Sequelize } = require('sequelize');
 
-export default (db = new Sequelize()) => {
+const user = (db = new Sequelize()) => {
   const User = db.define('Users', {
     id: {
       type: Sequelize.INTEGER,
@@ -60,3 +60,5 @@ export default (db = new Sequelize()) => {
 
   return User;
 };
+
+module.exports = user;

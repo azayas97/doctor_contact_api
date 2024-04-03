@@ -1,8 +1,8 @@
-import { Sequelize } from 'sequelize';
-import * as dotenv from 'dotenv';
+const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
 
-import userEntity from './user.entity.js';
-import doctorEntity from './doctor.entity.js';
+const userEntity = require('./user.entity.js');
+const doctorEntity = require('./doctor.entity.js');
 
 dotenv.config();
 
@@ -31,4 +31,4 @@ Object.keys(models).forEach((model) => {
   }
 });
 
-export default models;
+module.exports = models;
