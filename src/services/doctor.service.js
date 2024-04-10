@@ -72,7 +72,13 @@ const updateDoctorService = async (doctor) => {
     };
   }
 
-  const result = await doctorData.update(doctorModel);
+  const result = await doctorData.update({
+    id: doctorModel.id,
+    name: doctorModel.name ?? doctorData.name,
+    dpt: doctorModel.department ?? doctorData.dpt,
+    clinic: doctorModel.clinic ?? doctorData.clinic,
+    phone: doctorModel.phone ?? doctorData.phone,
+  });
 
   return {
     success: true,
