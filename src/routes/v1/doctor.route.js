@@ -34,7 +34,7 @@ router.put('/edit', [
 ], updateDoctor);
 router.delete('/delete/:id', [
   jwtCheck,
-  isUserActionAllowedCheck,
+  isUserAllowedCheck,
 ], deleteDoctorByID);
 
 module.exports = router;
