@@ -150,7 +150,7 @@ const updateDoctor = async (req, res) => {
 };
 
 const deleteDoctorByID = async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   try {
     const result = await deleteDoctorByIDService(id);

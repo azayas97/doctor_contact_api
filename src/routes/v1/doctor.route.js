@@ -32,7 +32,7 @@ router.put('/edit', [
   jwtCheck,
   isUserActionAllowedCheck,
 ], updateDoctor);
-router.delete('/delete', [
+router.delete('/delete/:id', [
   jwtCheck,
   isUserActionAllowedCheck,
 ], deleteDoctorByID);
