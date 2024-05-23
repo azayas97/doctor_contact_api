@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const models = require('../database/entities/index.js');
 
@@ -41,9 +42,18 @@ const loginUserService = async (email, password) => {
     expiresIn: Constants.EXPIRE_TIME,
   });
 
+  const length = 18;
+
+  const sessionToken = await models.token.create({
+    token,
+    session_id: crypto.randomBytes(Math.ceil(length / 2)).toString('hex').substring(0, length),
+    user_id: result.id,
+    expire_date: new Date(new Date().getTime() + Constants.EXPIRE_TIME).toUTCString(),
+  });
+
   const data = new Token(
     email,
-    token,
+    sessionToken.session_id,
     Constants.EXPIRE_TIME,
   );
 
@@ -51,7 +61,10 @@ const loginUserService = async (email, password) => {
     success: true,
     code: Constants.OKAY,
     message: messages.services.auth.successLogin,
-    data,
+    data: {
+      data,
+      id: result.id,
+    },
   };
 };
 
@@ -90,7 +103,36 @@ const changeUserPasswordService = async (email, oldPassword, newPassword) => {
   };
 };
 
+const exchangeSessionService = async (sessionId, userId) => {
+  const result = await models.token.findOne({
+    where: {
+      session_id: sessionId,
+      user_id: userId,
+    },
+  });
+
+  const expireDate = new Date(result?.expire_date || new Date());
+  const today = new Date();
+
+  if (!result || today > expireDate) {
+    return {
+      success: false,
+      code: Constants.UNAUTHORIZED,
+      message: messages.services.auth.sessionExpired,
+      data: null,
+    };
+  }
+
+  return {
+    success: true,
+    code: Constants.OKAY,
+    message: null,
+    data: result.token,
+  };
+};
+
 module.exports = {
   loginUserService,
   changeUserPasswordService,
+  exchangeSessionService,
 };

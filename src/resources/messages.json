@@ -9,7 +9,9 @@
       "noUser": "This email is not registered.",
       "successLogin": "User logged in successfully.",
       "passwordChanged": "Password changed successfully.",
-      "wrongPass": "Wrong credentials."
+      "wrongPass": "Wrong credentials.",
+      "sessionExpired": "The session has expired.",
+      "loggedOut": "Logged out successfully."
     },
     "doctor": {
       "created": "Doctor added successfully.",

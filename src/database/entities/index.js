@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 
 const userEntity = require('./user.entity.js');
 const doctorEntity = require('./doctor.entity.js');
+const tokenEntity = require('./token.entity.js');
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ const seq = new Sequelize(
 const models = {
   user: userEntity(seq),
   doctor: doctorEntity(seq),
+  token: tokenEntity(seq),
   seq,
   Sequelize,
 };

@@ -265,7 +265,7 @@ describe('/controllers/v1/doctor.controller', () => {
       ),
     );
     const req = {
-      body: {
+      params: {
         id: '1',
       },
     };
@@ -287,7 +287,7 @@ describe('/controllers/v1/doctor.controller', () => {
       new Error('Dang'),
     );
     const req = {
-      body: {
+      params: {
         id: '0',
       },
     };

@@ -56,6 +56,13 @@ const user = (db = new Sequelize()) => {
         allowNull: false,
       },
     });
+
+    User.hasMany(model.token, {
+      foreignKey: {
+        name: 'user_id',
+        allowNull: false,
+      },
+    });
   };
 
   return User;
