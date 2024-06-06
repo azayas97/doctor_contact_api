@@ -1,6 +1,7 @@
 const dotenv = require('dotenv');
 const express = require('express');
 const fileUpload = require('express-fileupload');
+const cors = require('cors');
 
 const models = require('./database/entities/index.js');
 
@@ -18,6 +19,11 @@ models.seq.sync({
     app.use(fileUpload());
     app.use(express.json());
 
+    app.use(cors({
+      origin: 'http://localhost:3000',
+      credentials: true,
+    }));
+
     // Routes
     app.use('/api', apiRoutes);
 
@@ -28,5 +34,5 @@ models.seq.sync({
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error(error);
   });

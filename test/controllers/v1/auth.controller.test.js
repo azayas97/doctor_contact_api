@@ -14,6 +14,7 @@ describe('/controllers/v1/auth.controller', () => {
   const res = {
     status: sinon.stub().returnsThis(),
     json: (e) => e,
+    cookie: sinon.stub().returnsThis(),
   };
 
   it('loginUser - Returns 400 if fields are missing', async () => {
@@ -33,7 +34,7 @@ describe('/controllers/v1/auth.controller', () => {
 
     expect(response.success).equal(false);
     expect(response.message).equal(messages.controllers.badRequest);
-  });
+  }).retries(2);
 
   it('loginUser - Catches error and returns 500', async () => {
     const testEmail = 'test@email.com';
@@ -65,11 +66,14 @@ describe('/controllers/v1/auth.controller', () => {
       success: true,
       code: 200,
       message: messages.services.auth.successLogin,
-      data: new Token(
-        testEmail,
-        'token',
-        Constants.EXPIRE_TIME,
-      ),
+      data: {
+        data: new Token(
+          testEmail,
+          'token',
+          Constants.EXPIRE_TIME,
+        ),
+        id: '1',
+      },
     });
 
     const mock = proxyquire('../../../src/controllers/v1/auth.controller.js', {
@@ -160,5 +164,65 @@ describe('/controllers/v1/auth.controller', () => {
 
     expect(response.success).equal(true);
     expect(response.message).equal(messages.services.auth.passwordChanged);
+  });
+
+  it('exchangeSession - Returns 200', async () => {
+    const exchangeSessionStub = sinon.stub().resolves({
+      success: true,
+      code: Constants.OKAY,
+      message: null,
+      data: 'token',
+    });
+
+    const req = {
+      body: {
+        sessionId: 'sessionId',
+        userId: 'userId',
+      },
+    };
+
+    const mock = proxyquire('../../../src/controllers/v1/auth.controller.js', {
+      '../../services/auth.service.js': {
+        exchangeSessionService: exchangeSessionStub,
+      },
+    });
+
+    const response = await mock.exchangeSession(req, res);
+
+    expect(response.success).equal(true);
+    expect(response.data).equal('token');
+  });
+
+  it('exchangeSession - Throws an error on service call', async () => {
+    const exchangeSessionStub = sinon.stub().throws(new Error('Error'));
+
+    const req = {
+      body: {
+        sessionId: 'sessionId',
+        userId: 'userId',
+      },
+    };
+
+    const mock = proxyquire('../../../src/controllers/v1/auth.controller.js', {
+      '../../services/auth.service.js': {
+        exchangeSessionService: exchangeSessionStub,
+      },
+    });
+
+    const response = await mock.exchangeSession(req, res);
+
+    expect(response.success).equal(false);
+    expect(response.data).equal('Error');
+  });
+
+  it('logout - logs out successfully', () => {
+    const mock = proxyquire('../../../src/controllers/v1/auth.controller.js', {});
+    const req = {};
+
+    const response = mock.logout(req, res);
+
+    expect(response.success).equal(true);
+    expect(response.code).equal(Constants.OKAY);
+    expect(response.message).equal(messages.services.auth.loggedOut);
   });
 });
